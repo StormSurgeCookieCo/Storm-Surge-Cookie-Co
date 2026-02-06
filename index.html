@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+
+<!-- Mobile scaling (already present, kept) -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- SEO: page title -->
+<title>Storm Surge Cookie Co | Gourmet Cookies in Victoria BC</title>
+
+<!-- SEO: meta description -->
+<meta name="description" content="Storm Surge Cookie Co offers handcrafted, limited batch gourmet cookies in Victoria and Shawnigan Lake, BC. West Coast inspired flavours, baked fresh for events, gifting, and cookie lovers." />
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #fff;
+  min-height: 100vh;
+  background-color: #3AC1C9;
+  overflow-x: hidden;
+}
+
+/* Floating background logo */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('StormSurgeLogo.png') no-repeat center center;
+  background-size: 55% auto;
+  opacity: 0.12;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Storm visuals */
+#waves {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.wave {
+  position: absolute;
+  bottom: 0;
+  width: 250%;
+  height: 400px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="0.35" d="M0,224L48,197.3C96,171,192,117,288,117.3C384,117,480,171,576,176C672,181,768,139,864,149.3C960,160,1056,224,1152,240C1248,256,1344,224,1392,208L1440,192L1440,320L0,320Z"></path></svg>') repeat-x;
+  animation: waveMove 12s linear infinite;
+}
+.wave:nth-child(2) { bottom: 50px; opacity: 0.4; animation-duration: 20s; }
+.wave:nth-child(3) { bottom: 100px; opacity: 0.25; animation-duration: 35s; }
+
+@keyframes waveMove {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-30%); }
+  100% { transform: translateX(-60%); }
+}
+
+/* Rain */
+#rain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.drop {
+  position: absolute;
+  width: 2px;
+  height: 18px;
+  background: rgba(255,255,255,0.3);
+  transform: rotate(-15deg);
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  from { transform: translateY(-100px) rotate(-15deg); opacity: 0; }
+  to { transform: translateY(100vh) rotate(-15deg); opacity: 1; }
+}
+
+/* Gentle storm shake */
+#waves, #rain, body::before {
+  animation: stormShake 4s ease-in-out infinite alternate;
+}
+@keyframes stormShake {
+  from { transform: translate(0,0); }
+  to { transform: translate(1px,-1px); }
+}
+
+/* Overlay */
+.text-overlay {
+  position: relative;
+  background: rgba(0,0,0,0.6);
+  padding: 40px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  z-index: 2;
+}
+
+h1, h2, h3 { font-family: 'Playfair Display', serif; }
+h2 { color: #ffddb3; }
+
+/* Header */
+header {
+  text-align: center;
+  padding: 80px 20px 40px;
+  position: relative;
+  z-index: 2;
+}
+header img {
+  max-width: 350px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+header h1 {
+  font-size: 3.2rem;
+  letter-spacing: 1.5px;
+  background: linear-gradient(180deg,#fff1c1,#ffddb3,#cfa65a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.6px rgba(0,0,0,0.7);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.45);
+}
+header p {
+  font-size: 1.2rem;
+  color: #f4c27a;
+}
+
+/* Navigation */
+nav {
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 2;
+}
+nav a {
+  margin: 0 15px;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Storm Watch Banner */
+.storm-watch {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  padding: 14px 20px;
+  border-radius: 8px;
+  background: linear-gradient(120deg, rgba(255,221,179,0.18), rgba(255,221,179,0.08));
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 0 25px rgba(255,221,179,0.3);
+  animation: stormWatchGlow 3.5s ease-in-out infinite alternate;
+  z-index: 2;
+}
+.storm-watch span { color: #ffddb3; }
+@keyframes stormWatchGlow {
+  from { box-shadow: 0 0 18px rgba(255,221,179,0.25); }
+  to { box-shadow: 0 0 30px rgba(255,221,179,0.45); }
+}
+
+/* Sections */
+section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Pricing */
+.pricing-inline {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffddb3;
+  margin: 10px 0 30px;
+  opacity: 0;
+  animation: pricingFade 1.2s ease-out forwards;
+}
+@keyframes pricingFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Menu hover shimmer */
+.menu-item {
+  margin-bottom: 30px;
+  padding: 12px;
+  border-radius: 8px;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+.menu-item:hover {
+  background: linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  box-shadow: 0 0 18px rgba(255,221,179,0.25);
+}
+.menu-item h3 { color: #ffddb3; }
+
+/* Wave divider */
+.wave-divider {
+  width: 100%;
+  height: 60px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"><path fill="white" fill-opacity="0.18" d="M0,50 C120,70 240,30 360,40 480,50 600,90 720,80 840,70 960,30 1080,40 1200,50 1320,80 1440,60 L1440,0 L0,0 Z"></path></svg>') repeat-x;
+  animation: dividerWave 18s linear infinite;
+  margin: 10px 0 30px;
+}
+@keyframes dividerWave {
+  from { background-position-x: 0; }
+  to { background-position-x: 1440px; }
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+input, textarea, button {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+button {
+  background-color: #ffddb3;
+  color: #3AC1C9;
+  font-weight: bold;
+}
+
+/* Inquiry subtext */
+.inquiry-subtext {
+  font-size: 0.95rem;
+  color: #f4c27a;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+/* MOBILE SAFETY — does NOT change desktop layout */
+@media (max-width: 768px) {
+  header h1 { font-size: 2.4rem; }
+  nav a { display: inline-block; margin: 8px 10px; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="waves">
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+</div>
+
+<div id="rain"></div>
+
+<header>
+  <img src="StormSurgeLogo.png" alt="Storm Surge Cookie Co logo, Victoria BC gourmet cookies">
+  <h1>Storm Surge Cookie Co.</h1>
+  <p>Handcrafted cookies inspired by the wild West Coast</p>
+</header>
+
+<nav>
+  <a href="#menu">Menu</a>
+  <a href="#about">About</a>
+  <a href="#inquiry">Inquire</a>
+</nav>
+
+<div class="storm-watch">
+  🌩️ <span>Storm Watch:</span> Limited batch cookies are making landfall — availability changes with the weather
+</div>
+
+<section id="menu" class="text-overlay">
+  <h2>Today’s Forecast – The Classics</h2>
+
+  <div class="pricing-inline">
+    $5 per cookie • 6 for $25 • 12 for $40
+  </div>
+
+  <div class="menu-item">
+    <h3>Storm Surge</h3>
+    <p>A <em>thicccck</em> chocolate chip cookie loaded with butterscotch, milk chocolate, coconut, oats, raisins and finished with a drizzle. A category 5 storm — expect heavy crumbfall.</p>
+  </div>
+
+  <div class="menu-item">
+    <h3>Chonkolate Chip</h3>
+    <p>A classic <em>thicccck</em> chocolate chip cookie — Brace for impact, zero apologies.</p>
+  </div>
+
+  <div class="menu-item">
+    <h3>Cranberry Lagoon</h3>
+    <p>Loaded with white chocolate, both orange & lemon zest, and loads of cranberry. why ? Because it’s simply the best.</p>
+  </div>
+
+  <div class="menu-item">
+    <h3>Grandpa Bud</h3>
+    <p>Old-school comfort done right — oatmeal, raisin, and dates. A big cozy hug on a rainy west coast day, timeless like my dad.</p>
+  </div>
+
+  <div class="menu-item">
+    <h3>Riptide</h3>
+    <p>Nutella meets chocolate chip. Rich, indulgent, and dangerously easy to love, this one has made landfall.</p>
+  </div>
+
+  <div class="menu-item">
+    <h3>Storm Chaser</h3>
+    <p>Peanut butter chocolate chip with butterscotch and loaded with peanuts. No Calm in sight.</p>
+  </div>
+
+  <div class="menu-item">
+    <h3>Category 5</h3>
+    <p>Dark double chocolate, white chocolate loaded with pecans and finishing with a red velvet drizzle and a pinch of black lava salt — slightly mischievous and messy in the best way.</p>
+  </div>
+</section>
+
+<div class="wave-divider"></div>
+
+<section id="about" class="text-overlay">
+  <h2>About Us</h2>
+  <p>
+    Storm Surge Cookie Company was born on the West Coast, where rain has a rhythm and comfort comes warm from the oven. Inspired by our rugged terrain, foggy mornings, and long stretches of driftwood filled shoreline, we bake thick, indulgent cookies meant to be enjoyed when the weather turns grey and stormy. These cookies are for rainy days, salty air and slowing down with coffee in hand while beachcombing, because on the coast, the best moments happen when you lean into the storm.
+  </p>
+</section>
+
+<div class="wave-divider"></div>
+
+<section id="inquiry" class="text-overlay">
+  <h2>Connect with us to ride out the Storm</h2>
+  <p class="inquiry-subtext">
+    If you have allergy concerns, or want something special to meet your dietary needs just let us know and lets get it done, together
+  </p>
+
+  <form action="mailto:stormsurgecookies@gmail.com" method="post" enctype="text/plain">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Email Address" required>
+    <input type="tel" name="phone" placeholder="Phone (optional)">
+    <textarea name="message" rows="5" placeholder="Your message / event details" required></textarea>
+    <button type="submit">Send Inquiry</button>
+  </form>
+
+  <p style="text-align:center;margin-top:15px;">
+    Based in Victoria & Shawnigan Lake, BC. Serving Vancouver Island and surrounding areas.
+  </p>
+</section>
+
+<footer>
+  &copy; 2026 Storm Surge Cookie Co. | stormsurgecookies@gmail.com | 250-896-4416
+</footer>
+
+<script>
+const rain = document.getElementById('rain');
+for (let i = 0; i < 150; i++) {
+  const drop = document.createElement('div');
+  drop.className = 'drop';
+  drop.style.left = Math.random() * 100 + 'vw';
+  drop.style.animationDuration = (0.5 + Math.random() * 0.7) + 's';
+  drop.style.animationDelay = Math.random() * 5 + 's';
+  rain.appendChild(drop);
+}
+</script>
+
+</body>
+</html>
